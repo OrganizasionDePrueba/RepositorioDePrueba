@@ -1,0 +1,23 @@
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+
+  - repo: local
+    hooks:
+      - id: check-commit-message
+        name: Check Commit Message
+        entry: powershell.exe -NoProfile -ExecutionPolicy Bypass -File pre-commit-hooks/check-commit-msg.ps1
+        language: system
+        stages: [commit-msg]
+      - id: pre-receive
+        name: receive
+        entry: powershell.exe -NoProfile -ExecutionPolicy Bypass -File pre-commit-hooks/pre-receive.ps1
+        language: system
+        stages: [pre-receive]
+      - id: update
+        name: update
+        entry: powershell.exe -NoProfile -ExecutionPolicy Bypass -File pre-commit-hooks/update.ps1
+        language: system
+        stages: [update]
